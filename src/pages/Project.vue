@@ -1,13 +1,13 @@
 <script>
-import ProjectCard from './components/ProjectCard.vue';
-import Header from './components/partials/Header.vue';
+import ProjectCard from '../components/ProjectCard.vue';
+import Header from '../components/partials/Header.vue';
 import axios from 'axios';
 
 export default {
   components: { ProjectCard,
     Header
    },
-  name:'App',
+  name:'Project',
   data(){
     return {
       baseUrl:'http://127.0.0.1:8000/api',
@@ -30,12 +30,15 @@ export default {
 </script>
 
 <template>
-  <Header/>
-  <router-view>
-  </router-view>
-
+  <div class="container">
+    <h1>Progetti</h1>
+    <div class="row">
+      <ProjectCard
+      v-for="project in projects" :key="project.id" :project="project"/>
+    </div>
+  </div>
 </template>
 
 <style lang="scss">
-    @use "./style/general.scss"
+    @use "../style/general.scss"
 </style>
