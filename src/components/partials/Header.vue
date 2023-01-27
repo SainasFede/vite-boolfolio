@@ -15,14 +15,17 @@ export default {
             </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
+              
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <router-link :to="{name: 'home'}">
+                      <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </router-link>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Chi Siamo</a>
+                  <router-link :to="{name: 'about'}"><a class="nav-link" href="#">Chi Siamo</a></router-link>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Contatti</a>
+                  <router-link :to="{name: 'contacts'}"><a class="nav-link" href="#">Contatti</a></router-link>
                 </li>
             </ul>
         </div>
@@ -31,6 +34,8 @@ export default {
   </div>
 </template>
 
-<style>
-
+<style lang="scss" scoped>
+  a{
+    text-decoration: none;
+  }
 </style>
