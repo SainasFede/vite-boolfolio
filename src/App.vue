@@ -1,9 +1,12 @@
 <script>
 import ProjectCard from './components/ProjectCard.vue';
+import Header from './components/partials/Header.vue';
 import axios from 'axios';
 
 export default {
-  components: { ProjectCard },
+  components: { ProjectCard,
+    Header
+   },
   name:'App',
   data(){
     return {
@@ -27,8 +30,11 @@ export default {
 </script>
 
 <template>
+  <Header/>
+  <router-view>
+  </router-view>
   <div class="container">
-    <h1>ciao</h1>
+    <h1>Progetti</h1>
     <div class="row">
       <ProjectCard
       v-for="project in projects" :key="project.id" :project="project"/>
