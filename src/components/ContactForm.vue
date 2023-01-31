@@ -5,9 +5,11 @@ export default {
   name: 'ContactForm',
   data(){
     return{
+			baseUrl:'http://127.0.0.1:8000/api',
       name:'',
       email:'',
       message:'',
+			errors:{},
     }
   },
   methods:{
@@ -15,9 +17,21 @@ export default {
       const data = {
         name: this.name,
         email: this.email,
-        message: this.message
+        message: this.message,
       }
 			console.log(data);
+			axios.post(this.baseUrl + '/contacts', data)
+				.then(result =>{
+					if(!result.data.success){
+						this.errors = result.data.errors;
+					}else{
+						console.log('ciaoooooo');
+						this.name = '';
+						this.email = '';
+						this.message =  '';
+						this.errors = {};
+					}
+				})
     }
   }
 }
@@ -38,7 +52,7 @@ export default {
 						<div class="row no-gutters">
 							<div class="col-md-6">
 								<div class="contact-wrap w-100 p-lg-5 p-4">
-									<h3 class="mb-4">Send us a message</h3>
+									<h3 class="mb-4">Invia una mail</h3>
 									<div id="form-message-warning" class="mb-4"></div> 
 				      		<div id="form-message-success" class="mb-4">
 				            Your message was sent, thank you!
@@ -47,17 +61,20 @@ export default {
 										<div class="row">
 											<div class="col-md-12">
 												<div class="form-group">
-													<input v-model.trim="name" type="text" class="form-control" id="name" placeholder="Name">
+													<input :class="{'is-invalid':errors.name}" v-model.trim="name" type="text" class="form-control" id="name" placeholder="Name">
+													<p v-for="(error, index) in errors.name" :key="'name' +index" class="error">{{error}}</p>
 												</div>
 											</div>
 											<div class="col-md-12"> 
 												<div class="form-group">
-													<input v-model.trim="email" type="email" class="form-control" id="email" placeholder="Email">
+													<input :class="{'is-invalid':errors.email}" v-model.trim="email" type="email" class="form-control" id="email" placeholder="Email">
+													<p v-for="(error, index) in errors.email" :key="'email' +index" class="error">{{error}}</p>
 												</div>
 											</div>
 											<div class="col-md-12">
 												<div class="form-group">
-													<textarea v-model.trim="message" class="form-control" id="message" cols="30" rows="6" placeholder="Message"></textarea>
+													<textarea :class="{'is-invalid':errors.message}" v-model.trim="message" class="form-control" id="message" cols="30" rows="6" placeholder="Message"></textarea>
+													<p v-for="(error, index) in errors.message" :key="'message' +index" class="error">{{error}}</p>
 												</div>
 											</div>
 											<div class="col-md-12">
